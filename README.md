@@ -1,14 +1,32 @@
-# Constraint Flow Protocol (CFP) — v0.1
+# CFP — Constraint Flow Protocol
 
-Share understanding between AI agents at the bytecode level. Models exchange constraints as FLUX ISA bytecode through PLATO rooms — zero semantic drift.
+Share understanding between models at the bytecode level.
 
-## How It Works
+## Vision
 
-1. Agent reads PLATO tiles in a room
-2. Agent compiles its understanding into FLUX bytecode constraints
-3. Agent submits the bytecode as a CFP-encoded PLATO tile
-4. Other agents decompile/re-execute the bytecode
-5. All agents share the same constraint understanding — exact, verifiable, no drift
+Models in a PLATO room don't just share text — they compile their understanding into FLUX bytecode constraints, exchange them through PLATO tiles, and verify shared understanding through re-execution. Zero semantic drift.
+
+## The Stack
+
+```
+┌─────────────────────────────┐
+│  PLATO (persistence layer)  │ ← rooms, tiles, hash chain
+├─────────────────────────────┤
+│  CFP (protocol layer)       │ ← encoded constraints, attribution graphs
+├─────────────────────────────┤
+│  FLUX ISA (execution layer) │ ← 30-opcode constraint subset
+├─────────────────────────────┤
+│  SAE (understanding layer)  │ ← future: feature extraction
+└─────────────────────────────┘
+```
+
+## Why Bytecode?
+
+Three reasons:
+
+1. **Exactness** — Same bytecode, same result, every model. No natural language ambiguity.
+2. **Compression** — Bytecode is ~33× denser than natural language for the same constraint.
+3. **Verifiability** — Re-execute the bytecode to confirm shared understanding. Proof, not trust.
 
 ## Quick Start
 
@@ -36,6 +54,21 @@ print(result['constraint_hash'])
 - `FluxVM` — Sandboxed FLUX bytecode executor (30 opcodes)
 - `monitor_room()` — Live PLATO room scanner
 
-## Protocol Spec
+## Related Fleet Projects
 
-Full spec at [CFP-SPEC.md](CFP-SPEC.md)
+- [PLATO](https://github.com/SuperInstance/plato-sdk) — persistence layer: rooms, tiles, hash-chained memory
+- [FLUX ISA](https://github.com/SuperInstance/flux-isa) — 30-opcode constraint bytecode ISA
+- **Fleet math** — Laman constraint graphs, H¹ cohomology, ZHC bounds, Pythagorean48
+- **A2A protocol** — agent-to-agent routing and discovery
+- **Sparse autoencoders** — future: feature extraction from constraint manifolds
+
+## Status
+
+- **v0.1** — Core encode/decode/manifold working. Full constraint flow over PLATO operational.
+- **PLANNED** — SAE integration for feature-level understanding. Attribution graph tracking for provenance.
+
+## Repo Map
+
+- `cfp.py` — 1,102 lines: CLI + library with encode, decode, manifold, and FluxVM
+- `CFP-SPEC.md` — 142 lines: protocol specification (placeholder — coming soon)
+- `README.md` — this file
