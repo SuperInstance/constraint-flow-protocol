@@ -1,5 +1,15 @@
 # CFP — Constraint Flow Protocol
 
+
+## Meta
+
+**Domain:** constraint-theory
+**Depends on:** —
+**Depended by:** —
+**Implements:** Share understanding between AI agents at the FLUX bytecode level — zero semantic...
+**Related:** —
+
+
 Share understanding between models at the bytecode level.
 
 ## Vision
