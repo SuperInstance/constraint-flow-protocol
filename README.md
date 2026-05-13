@@ -72,13 +72,32 @@ print(result['constraint_hash'])
 - **A2A protocol** — agent-to-agent routing and discovery
 - **Sparse autoencoders** — future: feature extraction from constraint manifolds
 
+## v2 — Simulation-First Extensions
+
+CFP v2 adds prediction-based verification with a "compare vs compute" optimization:
+constraints checked during planning only need a cheap O(1) comparison at runtime.
+
+**New in v2:**
+- `ConstraintPrediction` — wraps tiles with expected results and t_minus_event annotations
+- Confirmation tiles — planned → actual → MATCH/MISMATCH
+- Lamport clocks — causal ordering across distributed agents
+- Constraint lifecycle — Active → Superseded → Retracted state machine
+- PredictionRegistry — v2-aware manifold with batch confirmation
+
+See `CFP-V2-SPEC.md` for the full specification.
+See `src/cfp_v2.py` for the implementation.
+Run tests: `python -m pytest tests/test_cfp_v2.py -v`
+
 ## Status
 
 - **v0.1** — Core encode/decode/manifold working. Full constraint flow over PLATO operational.
+- **v2** — Simulation-first extensions with predictions, Lamport clocks, lifecycle states. Tests passing.
 - **PLANNED** — SAE integration for feature-level understanding. Attribution graph tracking for provenance.
 
 ## Repo Map
 
-- `cfp.py` — 1,102 lines: CLI + library with encode, decode, manifold, and FluxVM
-- `CFP-SPEC.md` — 142 lines: protocol specification (placeholder — coming soon)
+- `cfp.py` — CLI + library with encode, decode, manifold, and FluxVM
+- `src/cfp_v2.py` — v2 extensions: predictions, Lamport clocks, lifecycle, confirmation
+- `tests/test_cfp_v2.py` — unit tests for v2 (15 tests)
+- `CFP-V2-SPEC.md` — v2 protocol specification
 - `README.md` — this file
